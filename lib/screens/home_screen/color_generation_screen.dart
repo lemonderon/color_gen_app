@@ -27,17 +27,10 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
   final ValueNotifier<Color> _backgroundColorNotifier =
       ValueNotifier(kStartupBackgroundColor);
 
-  //
-  // final PausableTimer _centralBtnConsequentTapsRegistrationTimer =
-  //     PausableTimer(kConsequentBtnTapsRegistrationTime, () {
-  //   return;
-  // });
-
   int _centralBtnConsequentTapsN = 0;
 
   @override
   void dispose() {
-    ref.read(colorGenerationScreenTimerProvider).cancel();
     _backgroundColorNotifier.dispose();
     super.dispose();
   }
