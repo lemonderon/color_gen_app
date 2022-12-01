@@ -12,6 +12,10 @@ import 'package:pausable_timer/pausable_timer.dart';
 
 /// Main screen for this app. Allows user to generate random colors by tapping.
 class ColorGenerationScreen extends ConsumerStatefulWidget {
+  /// [Key] used for finding central button widget on this screen's widget tree.
+  static const Key centralButtonKey =
+      Key('#color_generation_central_button_key');
+
   /// Screen which generates random colors by tapping.
   const ColorGenerationScreen({Key? key}) : super(key: key);
 
@@ -40,62 +44,18 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context).size;
-    final double minMqVal = min(mq.height, mq.width);
-
-    final double centralBtnSize = (minMqVal > kMaxCentralSquareBtnSize * 2)
-        ? kMaxCentralSquareBtnSize
-        : minMqVal * 0.3;
-
     return ValueListenableBuilder(
       valueListenable: _backgroundColorNotifier,
       builder: (context, scaffoldBackgroundColor, child) {
-        final bool isColorPerceivedAsBright = calculatePerceivedColorBrightness(
-          scaffoldBackgroundColor,
-        );
-
-        final centralBtnColor = isColorPerceivedAsBright
-            ? kHighPerceivedBrightnessCentralBtnColor
-            : kLowPerceivedBrightnessCentralTextColor;
-
         return Scaffold(
           backgroundColor: scaffoldBackgroundColor,
           body: SafeArea(
             child: InkWell(
               onTap: _onBackgroundTaps,
-              child: Ink(
-                decoration: BoxDecoration(
-                  color: centralBtnColor,
-                  border: Border.all(
-                    color: centralBtnColor,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(kGeneralRoundingValue),
-                  ),
-                ),
-                child: InkWell(
-                  onTap: _onCentralBtnTaps,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(kGeneralRoundingValue),
-                  ),
-                  child: SizedBox(
-                    width: centralBtnSize,
-                    height: centralBtnSize,
-                    child: Center(
-                      child: Text(
-                        kHomePageCentralBtnText,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: kGenericTextFontSize,
-                          color: isColorPerceivedAsBright
-                              ? kHighPerceivedBrightnessCentralTextColor
-                              : kLowPerceivedBrightnessCentralTextColor,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              child: _CentralButton(
+                scaffoldBackgroundColor: scaffoldBackgroundColor,
+                onTap: _onCentralBtnTaps,
+                key: ColorGenerationScreen.centralButtonKey,
               ),
             ),
           ),
@@ -127,9 +87,73 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
 
       await showSimpleInfoDialog(
         context,
-        titleStr: "App version:",
+        titleStr: appVersionDialogTitle,
         contentStr: 'v $versionN',
       );
     }
+  }
+}
+
+class _CentralButton extends StatelessWidget {
+  final Color scaffoldBackgroundColor;
+  final Future<void> Function() onTap;
+
+  const _CentralButton({
+    required this.onTap,
+    required this.scaffoldBackgroundColor,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context).size;
+    final double minMqVal = min(mq.height, mq.width);
+
+    final double centralBtnSize = (minMqVal > kMaxCentralSquareBtnSize * 2)
+        ? kMaxCentralSquareBtnSize
+        : minMqVal * 0.3;
+
+    final bool isColorPerceivedAsBright = calculatePerceivedColorBrightness(
+      scaffoldBackgroundColor,
+    );
+
+    final centralBtnColor = isColorPerceivedAsBright
+        ? kHighPerceivedBrightnessCentralBtnColor
+        : kLowPerceivedBrightnessCentralTextColor;
+
+    return Ink(
+      decoration: BoxDecoration(
+        color: centralBtnColor,
+        border: Border.all(
+          color: centralBtnColor,
+        ),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(kGeneralRoundingValue),
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(kGeneralRoundingValue),
+        ),
+        child: SizedBox(
+          width: centralBtnSize,
+          height: centralBtnSize,
+          child: Center(
+            child: Text(
+              kHomePageCentralBtnText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: kGenericTextFontSize,
+                color: isColorPerceivedAsBright
+                    ? kHighPerceivedBrightnessCentralTextColor
+                    : kLowPerceivedBrightnessCentralTextColor,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

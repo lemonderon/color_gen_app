@@ -10,9 +10,11 @@ const _kColorFullyOpaqueVal = 0xFF;
 /// Generates colors using ARGB [Color] representation.
 ///
 /// By default will generate 256^3=16777216 colors using red, green and blue
-/// color components. If custom generator function [compGen] is provided
-/// then (r,g,b) components of the resulting [Color] will be calculated
-/// depending on current [RGBComponent].
+/// color components. If custom generator [compGen] is provided then (r,g,b)
+/// components of the resulting [Color] will be calculated using this function,
+/// otherwise - [_defaultColorComponentGenerator] will be used.
+/// [compGen] should generate values in range 0..255 for the passed
+/// [RGBComponent].
 Color generateColorFromRGB([
   int Function(RGBComponent) compGen = _defaultColorComponentGenerator,
 ]) {
@@ -34,7 +36,8 @@ Color generateColorFromRGB([
   return res;
 }
 
-/// Generates random values in range (0..255) using [Random.nextInt]
+/// Generates random values in range (0..255) using [Random.nextInt].
+/// Ignores [RGBComponent] parameter.
 int _defaultColorComponentGenerator(RGBComponent _) {
   final rnd = Random();
 

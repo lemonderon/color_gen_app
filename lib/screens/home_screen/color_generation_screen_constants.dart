@@ -16,20 +16,23 @@ const double kMaxCentralSquareBtnSize = 100;
 const Color kStartupBackgroundColor = Colors.black;
 
 /// [Color] to be used as the central button's background and border color
-/// when background has high perceived brightness value
+/// when background has high perceived brightness value.
 const Color kHighPerceivedBrightnessCentralBtnColor = Colors.black;
 
 /// [Color] to be used as the central button's background and border color
-/// when background has low perceived brightness value
+/// when background has low perceived brightness value.
 const Color kLowPerceivedBrightnessCentralBtnColor = Colors.yellow;
 
 /// [Color] to be used as the central button's text color when background has
-/// high perceived brightness value
+/// high perceived brightness value.
 const Color kHighPerceivedBrightnessCentralTextColor = Colors.white;
 
 /// [Color] to be used as the central button's text color when background has
-/// low perceived brightness value
+/// low perceived brightness value.
 const Color kLowPerceivedBrightnessCentralTextColor = Colors.black;
 
-/// Central button on the main
+/// Central button on the main.
 const String kHomePageCentralBtnText = 'Hey there';
+
+/// Title for dialog that shows app's version data.
+const String appVersionDialogTitle = 'App version:';
