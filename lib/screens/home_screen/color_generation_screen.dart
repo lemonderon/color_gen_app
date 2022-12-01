@@ -37,7 +37,7 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
 
   @override
   void dispose() {
-    ref.read(timerProvider).cancel();
+    ref.read(colorGenerationScreenTimerProvider).cancel();
     _backgroundColorNotifier.dispose();
     super.dispose();
   }
@@ -68,7 +68,7 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
 
   void _onBackgroundTaps() {
     _backgroundColorNotifier.value = generateColorFromRGB();
-    ref.read(timerProvider).reset();
+    ref.read(colorGenerationScreenTimerProvider).reset();
     // counter resetting
     _centralBtnConsequentTapsN = 0;
   }
@@ -77,7 +77,7 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
     _backgroundColorNotifier.value = generateColorFromRGB();
     ++_centralBtnConsequentTapsN;
 
-    final timer = ref.read(timerProvider);
+    final timer = ref.read(colorGenerationScreenTimerProvider);
     timer.start();
 
     if (_centralBtnConsequentTapsN >= kMaxCentralBtnConsequentTapsN &&

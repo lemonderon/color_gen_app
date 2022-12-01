@@ -3,13 +3,15 @@ import 'package:color_gen_app/screens/home_screen/color_generation_screen_consta
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
-/// [Provider] used to access prefetched app's data which was fetched
+/// Used to access prefetched app's data which was fetched
 /// on startup sequence.
 final dataFetchedOnStartProvider = Provider<DataFetchedOnStart>(
   (_) => const DataFetchedOnStart.empty(),
 );
 
-final timerProvider = Provider.autoDispose<PausableTimer>(
+/// Creates [PausableTimer] which is to be used in color generation screens.
+/// Timer duration is [kConsequentBtnTapsRegistrationTime].
+final colorGenerationScreenTimerProvider = Provider.autoDispose<PausableTimer>(
   (_) => PausableTimer(kConsequentBtnTapsRegistrationTime, () {
     return;
   }),
