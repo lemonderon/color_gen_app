@@ -25,7 +25,7 @@ const Color kLowPerceivedBrightnessCentralBtnColor = Colors.yellow;
 
 /// [Color] to be used as the central button's text color when background has
 /// high perceived brightness value.
-const Color kHighPerceivedBrightnessCentralTextColor = Colors.white;
+const Color kHighPerceivedBrightnessCentralTextColor = Colors.yellow;
 
 /// [Color] to be used as the central button's text color when background has
 /// low perceived brightness value.

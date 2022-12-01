@@ -8,7 +8,6 @@ import 'package:color_gen_app/utils/color/color_generation.dart';
 import 'package:color_gen_app/utils/color/color_parameteres.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pausable_timer/pausable_timer.dart';
 
 /// Main screen for this app. Allows user to generate random colors by tapping.
 class ColorGenerationScreen extends ConsumerStatefulWidget {
@@ -28,16 +27,17 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
   final ValueNotifier<Color> _backgroundColorNotifier =
       ValueNotifier(kStartupBackgroundColor);
 
-  final PausableTimer _centralBtnConsequentTapsRegistrationTimer =
-      PausableTimer(kConsequentBtnTapsRegistrationTime, () {
-    return;
-  });
+  //
+  // final PausableTimer _centralBtnConsequentTapsRegistrationTimer =
+  //     PausableTimer(kConsequentBtnTapsRegistrationTime, () {
+  //   return;
+  // });
 
   int _centralBtnConsequentTapsN = 0;
 
   @override
   void dispose() {
-    _centralBtnConsequentTapsRegistrationTimer.cancel();
+    ref.read(timerProvider).cancel();
     _backgroundColorNotifier.dispose();
     super.dispose();
   }
@@ -68,19 +68,20 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
 
   void _onBackgroundTaps() {
     _backgroundColorNotifier.value = generateColorFromRGB();
-    _centralBtnConsequentTapsRegistrationTimer.reset();
+    ref.read(timerProvider).reset();
     // counter resetting
     _centralBtnConsequentTapsN = 0;
   }
 
   Future<void> _onCentralBtnTaps() async {
     _backgroundColorNotifier.value = generateColorFromRGB();
-    _centralBtnConsequentTapsRegistrationTimer.start();
-
     ++_centralBtnConsequentTapsN;
 
+    final timer = ref.read(timerProvider);
+    timer.start();
+
     if (_centralBtnConsequentTapsN >= kMaxCentralBtnConsequentTapsN &&
-        _centralBtnConsequentTapsRegistrationTimer.isActive) {
+        timer.isActive) {
       // counter resetting
       _centralBtnConsequentTapsN = 0;
 
