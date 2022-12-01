@@ -1,13 +1,16 @@
 import 'package:color_gen_app/models/data_fetched_on_start.dart';
 import 'package:color_gen_app/providers/riverpod_providers.dart';
-import 'package:color_gen_app/screens/color_gen_screen.dart';
+import 'package:color_gen_app/screens/home_screen/color_generation_screen.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+/// Material App creation screen.
 class App extends StatelessWidget {
+  /// Received data from startup.
   final DataFetchedOnStart dataFetchedOnStart;
 
+  /// Creates new MaterialApp to be run
   const App({
     required this.dataFetchedOnStart,
     Key? key,
@@ -25,7 +28,7 @@ class App extends StatelessWidget {
         locale: DevicePreview.locale(context),
         builder: DevicePreview.appBuilder,
         title: 'Random color generator',
-        home: ColorGenerationScreen(),
+        home: const ColorGenerationScreen(),
       ),
     );
   }

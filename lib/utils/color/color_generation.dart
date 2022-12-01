@@ -17,11 +17,11 @@ Color generateColorFromRGB([
   int Function(RGBComponent) compGen = _defaultColorComponentGenerator,
 ]) {
   // Color consists of 4 components and corresponding 4 positioned bytes
-  // in the resulting integer.
-  final int blueComp = (compGen(RGBComponent.BLUE) & 0xFF) << 0;
-  final int greenComp = (compGen(RGBComponent.GREEN) & 0xFF) << 8;
-  final int redComp = (compGen(RGBComponent.RED) & 0xFF) << 16;
-  //TODO: int is not byte Any checks?
+  // in the resulting integer. 0xFF is used to ensure that compGen value is
+  // exactly in the range 0..255
+  final int blueComp = (compGen(RGBComponent.blue) & 0xFF) << 0;
+  final int greenComp = (compGen(RGBComponent.green) & 0xFF) << 8;
+  final int redComp = (compGen(RGBComponent.red) & 0xFF) << 16;
   const int alphaComp = _kColorFullyOpaqueVal << 24;
 
   final colorIntVal = alphaComp | redComp | greenComp | blueComp;
@@ -30,6 +30,7 @@ Color generateColorFromRGB([
   if (kDebugMode) {
     logger.d("Generated: $res");
   }
+
   return res;
 }
 

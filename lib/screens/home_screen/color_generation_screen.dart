@@ -1,16 +1,18 @@
 import 'dart:math';
 
-import 'package:color_gen_app/constants/app_theming_constants.dart';
-import 'package:color_gen_app/constants/home_page_constants.dart';
 import 'package:color_gen_app/modals/generic_modals.dart';
 import 'package:color_gen_app/providers/riverpod_providers.dart';
+import 'package:color_gen_app/screens/home_screen/color_generation_screen_constants.dart';
+import 'package:color_gen_app/theme/app_theming_constants.dart';
 import 'package:color_gen_app/utils/color/color_generation.dart';
 import 'package:color_gen_app/utils/color/color_parameteres.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 
+/// Main screen for this app. Allows user to generate random colors by tapping.
 class ColorGenerationScreen extends ConsumerStatefulWidget {
+  /// Screen which generates random colors by tapping.
   const ColorGenerationScreen({Key? key}) : super(key: key);
 
   @override
@@ -84,7 +86,7 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
                         kHomePageCentralBtnText,
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: kCentralButtonFontSize,
+                          fontSize: kGenericTextFontSize,
                           color: isColorPerceivedAsBright
                               ? kHighPerceivedBrightnessCentralTextColor
                               : kLowPerceivedBrightnessCentralTextColor,
@@ -123,7 +125,7 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
       final String versionN =
           ref.read(dataFetchedOnStartProvider).packageInfo?.version ?? '';
 
-      showSimpleInfoDialog(
+      await showSimpleInfoDialog(
         context,
         titleStr: "App version:",
         contentStr: 'v $versionN',

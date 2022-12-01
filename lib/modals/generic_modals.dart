@@ -1,8 +1,11 @@
-import 'package:color_gen_app/constants/app_theming_constants.dart';
-import 'package:color_gen_app/constants/dialog_constants.dart';
+import 'package:color_gen_app/modals/dialog_constants.dart';
+import 'package:color_gen_app/theme/app_theming_constants.dart';
 import 'package:flutter/material.dart';
 
-void showSimpleInfoDialog(
+/// Shows [Dialog] with only "Go back" button. Allows [titleStr] and
+/// [contentStr] as corresponding dialog title and content parameters.
+/// Can be dismissed.
+Future<void> showSimpleInfoDialog(
   BuildContext context, {
   String? titleStr,
   String? contentStr,
@@ -32,10 +35,10 @@ void showSimpleInfoDialog(
             Navigator.of(context).pop();
           },
           style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(const Color(0xFFD7D7D7)),
+            overlayColor: MaterialStateProperty.all(kDialogBackgroundColor),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
+                borderRadius: BorderRadius.circular(kGeneralRoundingValue),
               ),
             ),
             padding: MaterialStateProperty.all(
@@ -46,7 +49,7 @@ void showSimpleInfoDialog(
             kDefaultGoBackBtnText,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 15,
+              fontSize: kGenericTextFontSize,
               color: Colors.black,
               overflow: TextOverflow.ellipsis,
             ),
