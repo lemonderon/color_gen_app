@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:color_gen_app/utils/app_logger.dart';
 import 'package:color_gen_app/utils/color/rgb_component.dart';
+import 'package:flutter/foundation.dart';
 
 const _kColorFullyOpaqueVal = 0xFF;
 
@@ -16,14 +18,19 @@ Color generateColorFromRGB([
 ]) {
   // Color consists of 4 components and corresponding 4 positioned bytes
   // in the resulting integer.
-  final int blueComp = compGen(RGBComponent.BLUE) << 0;
-  final int greenComp = compGen(RGBComponent.GREEN) << 8;
-  final int redComp = compGen(RGBComponent.RED) << 16;
+  final int blueComp = (compGen(RGBComponent.BLUE) & 0xFF) << 0;
+  final int greenComp = (compGen(RGBComponent.GREEN) & 0xFF) << 8;
+  final int redComp = (compGen(RGBComponent.RED) & 0xFF) << 16;
+  //TODO: int is not byte Any checks?
   const int alphaComp = _kColorFullyOpaqueVal << 24;
 
-  final colorIntVal =  alphaComp | redComp | greenComp | blueComp;
+  final colorIntVal = alphaComp | redComp | greenComp | blueComp;
 
-  return Color(colorIntVal);
+  final res = Color(colorIntVal);
+  if (kDebugMode) {
+    logger.d("Generated: $res");
+  }
+  return res;
 }
 
 /// Generates random values in range (0..255) using [Random.nextInt]

@@ -1,0 +1,1 @@
+const kDefaultGoBackBtnText = 'Go back';
