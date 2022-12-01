@@ -19,7 +19,6 @@ dev_dependencies:
 dependencies:
   cupertino_icons: ^1.0.5
   device_preview: ^1.1.0
-  equatable: ^2.0.5
 
   flutter:
     sdk: flutter
