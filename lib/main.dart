@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 /// Whether [DevicePreview] MediaQuery simulation is activated.
-const kDevicesPreviewIsActive = true;
+const kDevicesPreviewIsActive = false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

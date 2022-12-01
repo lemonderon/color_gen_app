@@ -52,10 +52,12 @@ class _ColorGenerationScreenState extends ConsumerState<ColorGenerationScreen> {
           body: SafeArea(
             child: InkWell(
               onTap: _onBackgroundTaps,
-              child: _CentralButton(
-                scaffoldBackgroundColor: scaffoldBackgroundColor,
-                onTap: _onCentralBtnTaps,
-                key: ColorGenerationScreen.centralButtonKey,
+              child: Center(
+                child: _CentralButton(
+                  scaffoldBackgroundColor: scaffoldBackgroundColor,
+                  onTap: _onCentralBtnTaps,
+                  key: ColorGenerationScreen.centralButtonKey,
+                ),
               ),
             ),
           ),
@@ -119,7 +121,7 @@ class _CentralButton extends StatelessWidget {
 
     final centralBtnColor = isColorPerceivedAsBright
         ? kHighPerceivedBrightnessCentralBtnColor
-        : kLowPerceivedBrightnessCentralTextColor;
+        : kLowPerceivedBrightnessCentralBtnColor;
 
     return Ink(
       decoration: BoxDecoration(
